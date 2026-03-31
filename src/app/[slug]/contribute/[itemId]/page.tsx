@@ -180,16 +180,32 @@ export default function ContributePage() {
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-neutral-500 mb-1">{t('amount')} (VND) *</label>
+          <label className="block text-xs font-medium text-neutral-500 mb-1">
+            {t('amount')} (VND) *
+            {remaining > 0 && (
+              <span className="text-neutral-400 font-normal"> — còn lại {formatCurrency(remaining)}</span>
+            )}
+          </label>
           <input
-            type="number" value={amount} onChange={(e) => setAmount(e.target.value)}
+            type="number" value={amount}
+            onChange={(e) => {
+              const val = parseFloat(e.target.value)
+              if (remaining > 0 && val > remaining) {
+                setAmount(remaining.toString())
+              } else {
+                setAmount(e.target.value)
+              }
+            }}
             required min={1000}
+            max={remaining > 0 ? remaining : undefined}
             className="w-full px-3 py-2.5 rounded-lg border border-neutral-200 text-sm
                        focus:border-primary-400 focus:ring-1 focus:ring-primary-400 outline-none bg-white"
-            placeholder="200000"
+            placeholder={remaining > 0 ? formatCurrency(remaining) : '200000'}
           />
           <div className="flex flex-wrap gap-1.5 mt-2">
-            {[50000, 100000, 200000, 500000, 1000000].map((a) => (
+            {[50000, 100000, 200000, 500000, 1000000]
+              .filter((a) => remaining <= 0 || a <= remaining)
+              .map((a) => (
               <button
                 key={a} type="button" onClick={() => setAmount(a.toString())}
                 className={`px-2.5 py-1 rounded-md text-[11px] font-medium transition-colors ${
@@ -201,6 +217,18 @@ export default function ContributePage() {
                 {formatCurrency(a)}
               </button>
             ))}
+            {remaining > 0 && (
+              <button
+                type="button" onClick={() => setAmount(remaining.toString())}
+                className={`px-2.5 py-1 rounded-md text-[11px] font-medium transition-colors ${
+                  amount === remaining.toString()
+                    ? 'bg-primary-500 text-white'
+                    : 'bg-primary-50 text-primary-600 hover:bg-primary-100'
+                }`}
+              >
+                {formatCurrency(remaining)} (tất cả)
+              </button>
+            )}
           </div>
         </div>
 
