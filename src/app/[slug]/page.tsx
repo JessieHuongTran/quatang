@@ -229,13 +229,13 @@ export default function PublicRegistryPage() {
                       {t('contribute')}
                     </Link>
                   ) : (
-                    <div className="flex gap-2">
-                      {item.buy_url && (
+                    <div className="grid grid-cols-2 gap-2">
+                      {item.buy_url ? (
                         <a
                           href={appendAffiliateTag(item.buy_url)}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-lg
+                          className="flex items-center justify-center gap-1.5 py-2.5 rounded-lg
                                      bg-primary-500 text-white text-xs font-semibold
                                      hover:bg-primary-600 transition-all
                                      shadow-md shadow-primary-500/25 hover:shadow-lg"
@@ -243,15 +243,17 @@ export default function PublicRegistryPage() {
                           <IconCart size={14} />
                           {t('buyGift')}
                         </a>
+                      ) : (
+                        <div />
                       )}
                       <button
                         onClick={() => setClaimingItem(item)}
-                        className={`${item.buy_url ? 'px-3' : 'flex-1'} flex items-center justify-center gap-1.5
+                        className="flex items-center justify-center gap-1.5
                                     py-2.5 rounded-lg border border-neutral-200 text-neutral-700 text-xs font-semibold
-                                    hover:bg-neutral-50 transition-all shadow-sm`}
+                                    hover:bg-neutral-50 transition-all shadow-sm"
                       >
                         <IconCheck size={14} />
-                        {!item.buy_url && t('buyGift')}
+                        {t('buyGift')}
                       </button>
                     </div>
                   )}
