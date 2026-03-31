@@ -9,9 +9,11 @@ interface IconProps {
 export function IconPregnancy({ size = 24, className = '' }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 48 48" fill="none" className={className} xmlns="http://www.w3.org/2000/svg">
-      <circle cx="24" cy="12" r="6" stroke="currentColor" strokeWidth="2.5" fill="none" />
-      <path d="M20 20h2c4 0 7 2 8 5l2 6c.5 1.5-.5 3-2 3h-1l-1 8c0 1-1 2-2 2h-4c-1 0-2-1-2-2l-1-8h-1c-1.5 0-2.5-1.5-2-3l2-6c1-3 4-5 8-5z" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinejoin="round" />
-      <ellipse cx="27" cy="30" rx="3.5" ry="4" stroke="currentColor" strokeWidth="2" fill="none" opacity="0.5" />
+      <rect x="6" y="14" width="36" height="24" rx="3" stroke="currentColor" strokeWidth="2.5" fill="none" />
+      <path d="M16 14V10a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+      <path d="M6 22h36" stroke="currentColor" strokeWidth="2.5" />
+      <rect x="20" y="19" width="8" height="6" rx="1" stroke="currentColor" strokeWidth="2" fill="none" />
+      <line x1="24" y1="22" x2="24" y2="25" stroke="currentColor" strokeWidth="1.5" opacity="0.5" strokeLinecap="round" />
     </svg>
   )
 }

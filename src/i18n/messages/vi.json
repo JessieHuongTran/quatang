@@ -1,6 +1,6 @@
 {
   "common": {
-    "appName": "Tặng",
+    "appName": "Tặng Gì Đây",
     "tagline": "Danh sách quà tặng cho mọi dịp",
     "login": "Đăng nhập",
     "register": "Đăng ký",
@@ -52,8 +52,8 @@
     "ctaBottomSubtitle": "Miễn phí, không giới hạn. Chỉ mất 30 giây."
   },
   "auth": {
-    "loginTitle": "Đăng nhập vào Tặng",
-    "registerTitle": "Tạo tài khoản Tặng",
+    "loginTitle": "Đăng nhập vào Tặng Gì Đây",
+    "registerTitle": "Tạo tài khoản Tặng Gì Đây",
     "email": "Email",
     "password": "Mật khẩu",
     "fullName": "Họ và tên",
@@ -174,11 +174,11 @@
     "updateProfile": "Cập nhật thông tin"
   },
   "occasions": {
-    "pregnancy": "Mang thai",
+    "pregnancy": "Rời công tác",
     "birthday": "Sinh nhật",
     "wedding": "Đám cưới",
     "graduation": "Tốt nghiệp",
     "housewarming": "Tân gia",
-    "thoi_noi": "Thôi nôi"
+    "thoi_noi": "Mừng em bé"
   }
 }

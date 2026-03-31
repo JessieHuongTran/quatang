@@ -8,8 +8,8 @@ export const OCCASION_TYPES: Record<RegistryType, {
   accent: string    // Slightly stronger tint for borders
 }> = {
   pregnancy: {
-    labelVi: 'Mang thai',
-    labelEn: 'Pregnancy',
+    labelVi: 'Rời công tác',
+    labelEn: 'Farewell',
     tint: '#FFF5F5',
     accent: '#FEE8E8',
   },
@@ -38,8 +38,8 @@ export const OCCASION_TYPES: Record<RegistryType, {
     accent: '#E5F8EC',
   },
   thoi_noi: {
-    labelVi: 'Thôi nôi',
-    labelEn: 'First Birthday (Thôi nôi)',
+    labelVi: 'Mừng em bé',
+    labelEn: 'Baby Shower',
     tint: '#FFF5F9',
     accent: '#FEE8F0',
   },

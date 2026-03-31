@@ -1,6 +1,6 @@
 {
   "common": {
-    "appName": "Tặng",
+    "appName": "Tặng Gì Đây",
     "tagline": "Gift registry for every occasion",
     "login": "Log in",
     "register": "Sign up",
@@ -52,8 +52,8 @@
     "ctaBottomSubtitle": "Free, unlimited. Takes only 30 seconds."
   },
   "auth": {
-    "loginTitle": "Log in to Tặng",
-    "registerTitle": "Create a Tặng account",
+    "loginTitle": "Log in to Tặng Gì Đây",
+    "registerTitle": "Create a Tặng Gì Đây account",
     "email": "Email",
     "password": "Password",
     "fullName": "Full name",
@@ -174,11 +174,11 @@
     "updateProfile": "Update profile"
   },
   "occasions": {
-    "pregnancy": "Pregnancy",
+    "pregnancy": "Farewell",
     "birthday": "Birthday",
     "wedding": "Wedding",
     "graduation": "Graduation",
     "housewarming": "Housewarming",
-    "thoi_noi": "First Birthday"
+    "thoi_noi": "Baby Shower"
   }
 }
