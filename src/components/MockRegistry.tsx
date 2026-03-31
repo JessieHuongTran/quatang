@@ -9,7 +9,7 @@ export function MockRegistryPreview() {
     {
       name: 'Xe đẩy em bé Joie Litetrax',
       price: '4.500.000 ₫',
-      image: '/mock/stroller.jpg',
+      image: '/mock/stroller.png',
       claimed: false,
       isGroup: false,
     },
