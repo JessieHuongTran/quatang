@@ -24,7 +24,7 @@ export function MockRegistryPreview() {
     {
       name: 'Máy hút sữa điện đôi Medela',
       price: '3.800.000 ₫',
-      image: '/mock/pump.jpg',
+      image: '/mock/pump.png',
       claimed: false,
       isGroup: true,
       progress: 65,
