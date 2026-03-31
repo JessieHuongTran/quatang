@@ -13,7 +13,7 @@ const montserrat = Montserrat({
 })
 
 export const metadata: Metadata = {
-  title: 'Tặng Gì Đây — Danh sách quà tặng cho mọi dịp',
+  title: 'Tặng Gì Đây — Lên Danh Sách Quà Tiện Lợi Cho Mọi Sự Kiện',
   description: 'Tạo danh sách quà tặng, chia sẻ với bạn bè và người thân. Nhận quà đúng ý, tránh trùng lặp.',
 }
 
