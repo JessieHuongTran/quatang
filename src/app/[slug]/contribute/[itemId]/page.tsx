@@ -62,16 +62,30 @@ export default function ContributePage() {
 
     const transferNote = `${item.name} - ${registry.title}`
 
+    const contributionAmount = parseFloat(amount)
+
+    // Save the contribution
     await supabase.from('contributions').insert({
       registry_item_id: item.id,
       contributor_name: contributorName,
       contributor_email: contributorEmail || null,
       contributor_message: message || null,
-      amount: parseFloat(amount),
+      amount: contributionAmount,
       payment_method: paymentMethod,
       transfer_note: transferNote,
       status: 'pledged',
     })
+
+    // Update the item's progress immediately
+    const newAmount = (item.current_amount || 0) + contributionAmount
+    const isFullyFunded = item.target_amount ? newAmount >= item.target_amount : false
+    await supabase
+      .from('registry_items')
+      .update({
+        current_amount: newAmount,
+        is_fully_funded: isFullyFunded,
+      })
+      .eq('id', item.id)
 
     setSubmitting(false)
     setSubmitted(true)

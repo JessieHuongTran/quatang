@@ -57,26 +57,12 @@ export default function ContributionsPage() {
     loadData()
   }, [loadData])
 
-  const handleConfirm = async (contributionId: string, itemId: string, amount: number) => {
+  const handleConfirm = async (contributionId: string) => {
+    // Just mark as confirmed — amount already counted when contribution was made
     await supabase
       .from('contributions')
       .update({ status: 'confirmed' })
       .eq('id', contributionId)
-
-    const { data: item } = await supabase
-      .from('registry_items')
-      .select('current_amount, target_amount')
-      .eq('id', itemId)
-      .single()
-
-    if (item) {
-      const newAmount = (item.current_amount || 0) + amount
-      const isFullyFunded = item.target_amount ? newAmount >= item.target_amount : false
-      await supabase
-        .from('registry_items')
-        .update({ current_amount: newAmount, is_fully_funded: isFullyFunded })
-        .eq('id', itemId)
-    }
 
     loadData()
   }
@@ -152,7 +138,7 @@ export default function ContributionsPage() {
 
               {c.status === 'pledged' && (
                 <button
-                  onClick={() => handleConfirm(c.id, c.registry_item_id, c.amount)}
+                  onClick={() => handleConfirm(c.id)}
                   className="shrink-0 inline-flex items-center gap-1 px-4 py-2 rounded-lg
                              bg-green-500 text-white text-xs font-semibold hover:bg-green-600 transition-all
                              shadow-md shadow-green-500/25 hover:shadow-lg"

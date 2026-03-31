@@ -228,6 +228,13 @@ export default function ManageRegistryPage() {
               {copied ? tCommon('copied') : tCommon('share')}
             </button>
           )}
+          <Link
+            href={`/dashboard/${registryId}/contributions`}
+            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-xs font-semibold
+                       border border-neutral-200 text-neutral-700 hover:bg-neutral-50 transition-all shadow-sm"
+          >
+            Đóng góp
+          </Link>
           <button
             onClick={() => { resetForm(); setShowForm(true) }}
             className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-primary-500
