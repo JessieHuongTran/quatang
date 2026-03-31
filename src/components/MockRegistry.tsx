@@ -34,7 +34,7 @@ export function MockRegistryPreview() {
     {
       name: 'Cũi gỗ cho bé sơ sinh',
       price: '2.900.000 ₫',
-      image: '/mock/crib.jpg',
+      image: '/mock/crib.png',
       claimed: false,
       isGroup: false,
     },
