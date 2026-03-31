@@ -125,9 +125,9 @@ export const TESTIMONIALS = [
 // Real ecommerce logos — grayscale by default, color on hover
 export function EcommerceLogos() {
   const logos = [
-    { name: 'Shopee', src: '/logos/shopee.png', width: 120, height: 40 },
-    { name: 'Tiki', src: '/logos/tiki.png', width: 80, height: 32 },
-    { name: 'Lazada', src: '/logos/lazada.png', width: 110, height: 36 },
+    { name: 'Shopee', src: '/logos/shopee.png', width: 144, height: 48 },
+    { name: 'Tiki', src: '/logos/tiki.png', width: 96, height: 38 },
+    { name: 'Lazada', src: '/logos/lazada.png', width: 132, height: 43 },
   ]
 
   return (
@@ -142,7 +142,7 @@ export function EcommerceLogos() {
             alt={logo.name}
             width={logo.width}
             height={logo.height}
-            className="object-contain h-8 md:h-10 w-auto"
+            className="object-contain h-10 md:h-12 w-auto"
           />
         </div>
       ))}

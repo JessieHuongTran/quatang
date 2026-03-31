@@ -134,11 +134,11 @@ export default function LandingPage() {
       </section>
 
       {/* Supported ecommerce */}
-      <section className="py-10 md:py-14 bg-white">
+      <section className="py-12 md:py-16 bg-white">
         <div className="max-w-4xl mx-auto px-5">
-          <p className="text-center text-xs font-semibold text-neutral-300 uppercase tracking-widest mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-center text-neutral-900 mb-10 tracking-tight">
             {t('ecommerce')}
-          </p>
+          </h2>
           <EcommerceLogos />
         </div>
       </section>
