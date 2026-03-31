@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useRef } from 'react'
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -32,6 +32,13 @@ export default function ManageRegistryPage() {
   const [photoFile, setPhotoFile] = useState<File | null>(null)
   const [saving, setSaving] = useState(false)
   const [copied, setCopied] = useState(false)
+
+  // Scraping state
+  const [scrapeUrl, setScrapeUrl] = useState('')
+  const [scraping, setScraping] = useState(false)
+  const [scrapeError, setScrapeError] = useState('')
+  const [scrapedImageUrl, setScrapedImageUrl] = useState<string | null>(null)
+  const scrapeTimerRef = useRef<NodeJS.Timeout | null>(null)
 
   const loadData = useCallback(async () => {
     const { data: reg } = await supabase
@@ -66,6 +73,40 @@ export default function ManageRegistryPage() {
     setPhotoFile(null)
     setEditingItem(null)
     setShowForm(false)
+    setScrapeUrl('')
+    setScrapeError('')
+    setScrapedImageUrl(null)
+  }
+
+  const handleScrapeUrl = async (url: string) => {
+    setScrapeUrl(url)
+    setScrapeError('')
+
+    if (scrapeTimerRef.current) clearTimeout(scrapeTimerRef.current)
+
+    if (!url || !url.startsWith('http')) return
+
+    scrapeTimerRef.current = setTimeout(async () => {
+      setScraping(true)
+      try {
+        const res = await fetch(`/api/scrape-url?url=${encodeURIComponent(url)}`)
+        const data = await res.json()
+
+        if (!res.ok || data.error) {
+          setScrapeError('Không lấy được thông tin, bạn có thể nhập thủ công')
+          setScraping(false)
+          return
+        }
+
+        if (data.title && !name) setName(data.title)
+        if (data.price && !priceEstimate) setPriceEstimate((data.price / 1000).toString())
+        if (data.image) setScrapedImageUrl(data.image)
+        setBuyUrl(url)
+      } catch {
+        setScrapeError('Không lấy được thông tin, bạn có thể nhập thủ công')
+      }
+      setScraping(false)
+    }, 500)
   }
 
   const handleEdit = (item: RegistryItem) => {
@@ -82,7 +123,7 @@ export default function ManageRegistryPage() {
     e.preventDefault()
     setSaving(true)
 
-    let photoUrl = editingItem?.photo_url || null
+    let photoUrl = editingItem?.photo_url || scrapedImageUrl || null
 
     if (photoFile) {
       const { data: { user } } = await supabase.auth.getUser()
@@ -206,7 +247,58 @@ export default function ManageRegistryPage() {
             {editingItem ? t('editItem') : t('addItem')}
           </h2>
           <form onSubmit={handleSubmit} className="space-y-3">
-            <div className="grid grid-cols-2 gap-3">
+            {/* URL Scrape — top of form */}
+            {!editingItem && (
+              <div>
+                <label className="block text-xs font-medium text-neutral-500 mb-1">
+                  Link sản phẩm (Shopee, Tiki, Lazada...)
+                </label>
+                <div className="relative">
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400">
+                    <IconLink size={14} />
+                  </span>
+                  <input
+                    type="url"
+                    value={scrapeUrl}
+                    onChange={(e) => handleScrapeUrl(e.target.value)}
+                    className="w-full pl-8 pr-3 py-2.5 rounded-lg border border-neutral-200 text-sm bg-white
+                               focus:border-primary-400 focus:ring-1 focus:ring-primary-400 outline-none"
+                    placeholder="Dán link sản phẩm để tự động điền..."
+                  />
+                  {scraping && (
+                    <span className="absolute right-3 top-1/2 -translate-y-1/2">
+                      <span className="block w-4 h-4 border-2 border-primary-500 border-t-transparent rounded-full animate-spin" />
+                    </span>
+                  )}
+                </div>
+                {scrapeError && (
+                  <p className="text-xs text-amber-600 mt-1">{scrapeError}</p>
+                )}
+              </div>
+            )}
+
+            {/* Scraped image preview */}
+            {scrapedImageUrl && !photoFile && (
+              <div className="flex items-center gap-3 p-2 rounded-lg bg-neutral-50 border border-neutral-100">
+                <img
+                  src={scrapedImageUrl}
+                  alt="Preview"
+                  className="w-16 h-16 rounded-lg object-cover"
+                />
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs text-neutral-500 truncate">{name || 'Ảnh sản phẩm'}</p>
+                  <button
+                    type="button"
+                    onClick={() => setScrapedImageUrl(null)}
+                    className="text-xs text-red-500 hover:underline mt-0.5"
+                  >
+                    Xóa ảnh
+                  </button>
+                </div>
+              </div>
+            )}
+
+            <div className={`grid grid-cols-2 gap-3 ${scraping ? 'opacity-50 pointer-events-none' : ''}`}>
               <div>
                 <label className="block text-xs font-medium text-neutral-500 mb-1">{t('name')}</label>
                 <input
@@ -233,7 +325,9 @@ export default function ManageRegistryPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-neutral-500 mb-1">{t('photo')}</label>
+              <label className="block text-xs font-medium text-neutral-500 mb-1">
+                {scrapedImageUrl ? 'Thay ảnh khác' : t('photo')}
+              </label>
               <input
                 type="file"
                 accept="image/*"
@@ -244,17 +338,19 @@ export default function ManageRegistryPage() {
               />
             </div>
 
-            <div>
-              <label className="block text-xs font-medium text-neutral-500 mb-1">{t('buyUrl')}</label>
-              <input
-                type="url"
-                value={buyUrl}
-                onChange={(e) => setBuyUrl(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-neutral-200 text-sm bg-white
-                           focus:border-primary-400 focus:ring-1 focus:ring-primary-400 outline-none"
-                placeholder={t('buyUrlPlaceholder')}
-              />
-            </div>
+            {!scrapeUrl && (
+              <div>
+                <label className="block text-xs font-medium text-neutral-500 mb-1">{t('buyUrl')}</label>
+                <input
+                  type="url"
+                  value={buyUrl}
+                  onChange={(e) => setBuyUrl(e.target.value)}
+                  className="w-full px-3 py-2 rounded-lg border border-neutral-200 text-sm bg-white
+                             focus:border-primary-400 focus:ring-1 focus:ring-primary-400 outline-none"
+                  placeholder={t('buyUrlPlaceholder')}
+                />
+              </div>
+            )}
 
             <label className="flex items-center gap-2 cursor-pointer">
               <input
