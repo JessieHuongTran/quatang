@@ -7,6 +7,11 @@
   --color-primary-light: #FFF0F3;
 }
 
+/* Smooth scrolling globally */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   color: #1C1917;
   background: #FAFAF9;
@@ -24,23 +29,44 @@ body {
 
 /* Rotating text animation */
 @keyframes text-slide-up {
-  0%, 16% {
+  0%, 14% {
     transform: translateY(0%);
+    opacity: 1;
   }
-  20%, 36% {
+  16%, 17% {
+    opacity: 0;
+  }
+  17.5%, 31% {
     transform: translateY(-100%);
+    opacity: 1;
   }
-  40%, 56% {
+  33%, 34% {
+    opacity: 0;
+  }
+  34.5%, 48% {
     transform: translateY(-200%);
+    opacity: 1;
   }
-  60%, 76% {
+  50%, 51% {
+    opacity: 0;
+  }
+  51.5%, 65% {
     transform: translateY(-300%);
+    opacity: 1;
   }
-  80%, 96% {
+  67%, 68% {
+    opacity: 0;
+  }
+  68.5%, 82% {
     transform: translateY(-400%);
+    opacity: 1;
   }
-  100% {
+  84%, 85% {
+    opacity: 0;
+  }
+  85.5%, 100% {
     transform: translateY(-500%);
+    opacity: 1;
   }
 }
 
@@ -52,7 +78,7 @@ body {
 }
 
 .text-rotate-inner {
-  animation: text-slide-up 12s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  animation: text-slide-up 15s ease-in-out infinite;
 }
 
 .text-rotate-inner span {
@@ -63,16 +89,36 @@ body {
 
 /* Card hover lift */
 .card-hover {
-  transition: transform 0.25s cubic-bezier(0.33, 1, 0.68, 1),
-              box-shadow 0.25s cubic-bezier(0.33, 1, 0.68, 1);
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .card-hover:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
 }
 
-/* Fade in on scroll */
+/* Scroll-triggered reveal animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.35s; }
+.reveal-delay-5 { transition-delay: 0.4s; }
+.reveal-delay-6 { transition-delay: 0.45s; }
+
+/* Legacy fade-up for non-scroll contexts */
 @keyframes fade-up {
   from {
     opacity: 0;
@@ -93,3 +139,8 @@ body {
 .animate-delay-3 { animation-delay: 0.3s; }
 .animate-delay-4 { animation-delay: 0.4s; }
 .animate-delay-5 { animation-delay: 0.5s; }
+
+/* Smooth section transitions */
+section {
+  will-change: transform;
+}
