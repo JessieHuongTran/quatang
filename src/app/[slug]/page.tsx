@@ -253,7 +253,7 @@ export default function PublicRegistryPage() {
                                     hover:bg-neutral-50 transition-all shadow-sm"
                       >
                         <IconCheck size={14} />
-                        {t('buyGift')}
+                        {tCommon('claimed')}
                       </button>
                     </div>
                   )}
