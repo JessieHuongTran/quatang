@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import { OCCASION_TYPES } from '@/lib/constants'
 import { OCCASION_ICONS, IconGift, IconUsers, IconQR } from '@/components/Icons'
+import { MockRegistryPreview, TESTIMONIALS, EcommerceLogos } from '@/components/MockRegistry'
 import type { RegistryType } from '@/lib/types/database'
 
 // Intersection Observer hook for scroll-triggered animations
@@ -47,8 +48,10 @@ export default function LandingPage() {
   const tCommon = useTranslations('common')
 
   const howRef = useRevealOnScroll()
+  const previewRef = useRevealOnScroll()
   const occasionsRef = useRevealOnScroll()
   const featuresRef = useRevealOnScroll()
+  const testimonialsRef = useRevealOnScroll()
   const ctaRef = useRevealOnScroll()
 
   const occasions: RegistryType[] = ['birthday', 'wedding', 'pregnancy', 'graduation', 'housewarming', 'thoi_noi']
@@ -109,6 +112,34 @@ export default function LandingPage() {
               <p className="text-sm text-neutral-500 leading-relaxed">{step.desc}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Mock Registry Preview */}
+      <section ref={previewRef} className="bg-neutral-50 py-16 md:py-24">
+        <div className="max-w-5xl mx-auto px-5">
+          <div className="reveal">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-center text-neutral-900 mb-2 tracking-tight">
+              {t('previewLine1')}{' '}
+              <span className="text-primary-500">{t('previewAccent')}</span>
+            </h2>
+            <p className="text-center text-neutral-400 mb-10 md:mb-14 text-sm">
+              {t('previewSubtitle')}
+            </p>
+          </div>
+          <div className="reveal reveal-delay-2">
+            <MockRegistryPreview />
+          </div>
+        </div>
+      </section>
+
+      {/* Supported ecommerce */}
+      <section className="py-10 md:py-14 bg-white">
+        <div className="max-w-4xl mx-auto px-5">
+          <p className="text-center text-xs font-semibold text-neutral-300 uppercase tracking-widest mb-6">
+            {t('ecommerce')}
+          </p>
+          <EcommerceLogos />
         </div>
       </section>
 
@@ -181,6 +212,41 @@ export default function LandingPage() {
             <p className="text-sm text-neutral-500 leading-relaxed">
               {t('vietqrDesc')}
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section ref={testimonialsRef} className="bg-neutral-50 py-16 md:py-24">
+        <div className="max-w-5xl mx-auto px-5">
+          <div className="reveal">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-center text-neutral-900 mb-2 tracking-tight">
+              {t('testimonialsLine1')}{' '}
+              <span className="text-primary-500">{t('testimonialsAccent')}</span>
+            </h2>
+            <p className="text-center text-neutral-400 mb-10 md:mb-14 text-sm">
+              {t('testimonialsSubtitle')}
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-4">
+            {TESTIMONIALS.map((t, i) => (
+              <div
+                key={i}
+                className={`reveal reveal-delay-${i + 1} card-hover bg-white border border-neutral-200 rounded-2xl p-6 shadow-sm`}
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-full bg-primary-50 text-primary-500 flex items-center justify-center text-xs font-bold">
+                    {t.avatar}
+                  </div>
+                  <div>
+                    <div className="text-sm font-semibold text-neutral-900">{t.name}</div>
+                    <div className="text-[11px] text-neutral-400">{t.role}</div>
+                  </div>
+                </div>
+                <p className="text-sm text-neutral-600 leading-relaxed">&ldquo;{t.text}&rdquo;</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
