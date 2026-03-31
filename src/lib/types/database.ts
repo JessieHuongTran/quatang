@@ -135,6 +135,7 @@ export interface Database {
           is_fully_funded: boolean
           is_purchased: boolean
           purchased_by_name: string | null
+          purchased_message: string | null
           purchased_at: string | null
           position: number
           created_at: string
@@ -152,6 +153,7 @@ export interface Database {
           is_fully_funded?: boolean
           is_purchased?: boolean
           purchased_by_name?: string | null
+          purchased_message?: string | null
           purchased_at?: string | null
           position?: number
           created_at?: string
@@ -169,6 +171,7 @@ export interface Database {
           is_fully_funded?: boolean
           is_purchased?: boolean
           purchased_by_name?: string | null
+          purchased_message?: string | null
           purchased_at?: string | null
           position?: number
           created_at?: string

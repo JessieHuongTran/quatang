@@ -111,6 +111,7 @@ create table public.registry_items (
   is_fully_funded boolean default false,
   is_purchased boolean default false,
   purchased_by_name text,
+  purchased_message text,
   purchased_at timestamptz,
   position integer default 0,
   created_at timestamptz default now()

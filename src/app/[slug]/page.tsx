@@ -90,6 +90,7 @@ export default function PublicRegistryPage() {
       .update({
         is_purchased: true,
         purchased_by_name: claimName,
+        purchased_message: claimMessage || null,
         purchased_at: new Date().toISOString(),
       })
       .eq('id', claimingItem.id)

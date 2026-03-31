@@ -347,10 +347,17 @@ export default function ManageRegistryPage() {
                     </>
                   )}
                   {item.is_purchased && (
-                    <span className="text-xs text-green-600 font-medium">
-                      {tCommon('claimed')}
-                      {item.purchased_by_name && ` — ${item.purchased_by_name}`}
-                    </span>
+                    <div>
+                      <span className="text-xs text-green-600 font-medium">
+                        {tCommon('claimed')}
+                        {item.purchased_by_name && ` — ${item.purchased_by_name}`}
+                      </span>
+                      {item.purchased_message && (
+                        <p className="text-xs text-neutral-400 italic mt-0.5">
+                          &ldquo;{item.purchased_message}&rdquo;
+                        </p>
+                      )}
+                    </div>
                   )}
                 </div>
                 {item.is_group_gift && item.target_amount && (
