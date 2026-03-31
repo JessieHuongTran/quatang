@@ -1,8 +1,16 @@
 import type { Metadata } from 'next'
+import { Montserrat } from 'next/font/google'
 import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getMessages } from 'next-intl/server'
 import Header from '@/components/Header'
 import './globals.css'
+
+const montserrat = Montserrat({
+  subsets: ['latin', 'vietnamese'],
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-montserrat',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: 'Tặng — Danh sách quà tặng cho mọi dịp',
@@ -18,7 +26,7 @@ export default async function RootLayout({
   const messages = await getMessages()
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className={montserrat.variable}>
       <body className="font-sans antialiased min-h-screen bg-neutral-50 text-neutral-900">
         <NextIntlClientProvider messages={messages}>
           <Header />
