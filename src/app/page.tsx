@@ -230,21 +230,23 @@ export default function LandingPage() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-4">
-            {TESTIMONIALS.map((t, i) => (
+            {TESTIMONIALS.map((testimonial, i) => (
               <div
                 key={i}
                 className={`reveal reveal-delay-${i + 1} card-hover bg-white border border-neutral-200 rounded-2xl p-6 shadow-sm`}
               >
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-full bg-primary-50 text-primary-500 flex items-center justify-center text-xs font-bold">
-                    {t.avatar}
-                  </div>
+                  <img
+                    src={testimonial.avatar}
+                    alt={testimonial.name}
+                    className="w-10 h-10 rounded-full object-cover"
+                  />
                   <div>
-                    <div className="text-sm font-semibold text-neutral-900">{t.name}</div>
-                    <div className="text-[11px] text-neutral-400">{t.role}</div>
+                    <div className="text-sm font-semibold text-neutral-900">{testimonial.name}</div>
+                    <div className="text-[11px] text-neutral-400">{testimonial.role}</div>
                   </div>
                 </div>
-                <p className="text-sm text-neutral-600 leading-relaxed">&ldquo;{t.text}&rdquo;</p>
+                <p className="text-sm text-neutral-600 leading-relaxed">&ldquo;{testimonial.text}&rdquo;</p>
               </div>
             ))}
           </div>

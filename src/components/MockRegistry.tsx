@@ -1,23 +1,22 @@
 'use client'
 
+import Image from 'next/image'
 import { IconBirthday, IconCheck } from './Icons'
 
-// Mock registry preview — looks like a real registry page
+// Mock registry preview with real product images
 export function MockRegistryPreview() {
   const items = [
     {
       name: 'Xe đẩy em bé Joie',
       price: '4.500.000 ₫',
-      image: '🛒',
-      gradient: 'from-rose-100 to-pink-50',
+      image: '/mock/stroller.jpg',
       claimed: false,
       isGroup: false,
     },
     {
       name: 'Bộ chăn ga gối Cute',
       price: '1.200.000 ₫',
-      image: '🛏️',
-      gradient: 'from-blue-50 to-indigo-50',
+      image: '/mock/bedding.jpg',
       claimed: true,
       claimedBy: 'Minh',
       isGroup: false,
@@ -25,8 +24,7 @@ export function MockRegistryPreview() {
     {
       name: 'Máy hút sữa Medela',
       price: '3.800.000 ₫',
-      image: '🍼',
-      gradient: 'from-amber-50 to-yellow-50',
+      image: '/mock/pump.jpg',
       claimed: false,
       isGroup: true,
       progress: 65,
@@ -36,8 +34,7 @@ export function MockRegistryPreview() {
     {
       name: 'Nôi em bé tự động',
       price: '2.900.000 ₫',
-      image: '👶',
-      gradient: 'from-emerald-50 to-teal-50',
+      image: '/mock/crib.jpg',
       claimed: false,
       isGroup: false,
     },
@@ -61,9 +58,8 @@ export function MockRegistryPreview() {
             key={i}
             className={`p-4 ${i < 2 ? 'border-b border-neutral-100' : ''} ${i % 2 === 0 ? 'border-r border-neutral-100' : ''} ${item.claimed ? 'opacity-50' : ''}`}
           >
-            {/* Image placeholder */}
-            <div className={`h-24 rounded-lg bg-gradient-to-br ${item.gradient} flex items-center justify-center text-3xl mb-3`}>
-              {item.image}
+            <div className="relative h-24 rounded-lg overflow-hidden bg-neutral-100 mb-3">
+              <Image src={item.image} alt={item.name} fill className="object-cover" />
             </div>
 
             <h4 className="text-xs font-semibold text-neutral-900 mb-0.5 truncate">{item.name}</h4>
@@ -104,48 +100,51 @@ export function MockRegistryPreview() {
   )
 }
 
-// Testimonials data
+// Testimonials with real avatar photos
 export const TESTIMONIALS = [
   {
     name: 'Thanh Hương',
     role: 'Mẹ bỉm sữa',
     text: 'Mình tạo danh sách cho baby shower, bạn bè chọn quà chính xác luôn. Không bị trùng món nào!',
-    avatar: 'TH',
+    avatar: '/avatars/woman1.jpg',
   },
   {
     name: 'Minh Đức',
     role: 'Chú rể',
     text: 'Đám cưới mình dùng Tặng Gì Đây để bạn bè góp tiền mua tủ lạnh. QR chuyển khoản tiện cực!',
-    avatar: 'MĐ',
+    avatar: '/avatars/man1.jpg',
   },
   {
     name: 'Phương Anh',
     role: 'Sinh viên',
     text: 'Dùng cho sinh nhật, chỉ cần gửi link cho mọi người. Ai cũng biết mình thích gì, khỏi đoán.',
-    avatar: 'PA',
+    avatar: '/avatars/woman2.jpg',
   },
 ]
 
-// Ecommerce logos as clean SVG text badges
+// Real ecommerce logos — grayscale by default, color on hover
 export function EcommerceLogos() {
   const logos = [
-    { name: 'Shopee', color: '#EE4D2D' },
-    { name: 'Tiki', color: '#1A94FF' },
-    { name: 'Lazada', color: '#0F146D' },
-    { name: 'Sendo', color: '#EE2624' },
-    { name: 'Amazon', color: '#FF9900' },
+    { name: 'Shopee', src: '/logos/shopee.png', width: 120, height: 40 },
+    { name: 'Tiki', src: '/logos/tiki.png', width: 80, height: 32 },
+    { name: 'Lazada', src: '/logos/lazada.png', width: 110, height: 36 },
   ]
 
   return (
-    <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
+    <div className="flex items-center justify-center gap-10 md:gap-16">
       {logos.map((logo) => (
-        <span
+        <div
           key={logo.name}
-          className="text-sm md:text-base font-bold tracking-tight opacity-40 hover:opacity-70 transition-opacity"
-          style={{ color: logo.color }}
+          className="grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer"
         >
-          {logo.name}
-        </span>
+          <Image
+            src={logo.src}
+            alt={logo.name}
+            width={logo.width}
+            height={logo.height}
+            className="object-contain h-8 md:h-10 w-auto"
+          />
+        </div>
       ))}
     </div>
   )
