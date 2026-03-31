@@ -7,14 +7,14 @@ import { IconBirthday, IconCheck } from './Icons'
 export function MockRegistryPreview() {
   const items = [
     {
-      name: 'Xe đẩy em bé Joie',
+      name: 'Xe đẩy em bé Joie Litetrax',
       price: '4.500.000 ₫',
       image: '/mock/stroller.jpg',
       claimed: false,
       isGroup: false,
     },
     {
-      name: 'Bộ chăn ga gối Cute',
+      name: 'Bộ chăn ga gối cũi cho bé',
       price: '1.200.000 ₫',
       image: '/mock/bedding.jpg',
       claimed: true,
@@ -22,7 +22,7 @@ export function MockRegistryPreview() {
       isGroup: false,
     },
     {
-      name: 'Máy hút sữa Medela',
+      name: 'Máy hút sữa điện đôi Medela',
       price: '3.800.000 ₫',
       image: '/mock/pump.jpg',
       claimed: false,
@@ -32,7 +32,7 @@ export function MockRegistryPreview() {
       contributors: 4,
     },
     {
-      name: 'Nôi em bé tự động',
+      name: 'Cũi gỗ cho bé sơ sinh',
       price: '2.900.000 ₫',
       image: '/mock/crib.jpg',
       claimed: false,
